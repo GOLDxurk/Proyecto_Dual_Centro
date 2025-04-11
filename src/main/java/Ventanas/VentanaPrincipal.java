@@ -1,7 +1,6 @@
-package Proyecto.Dual.Centro.Proyecto_Dual_Centro;
+package Ventanas;
 
 import java.awt.*;
-import java.util.Iterator;
 
 import javax.swing.*;
 
@@ -27,7 +26,7 @@ public class VentanaPrincipal extends JFrame {
 		// Posicion de los elementos dentro del JPanel
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		// Botones con acceso a las actividades sobre la base de datos
-		// losJbuttons estan en un array para luego ser creados leidos por
+		// los JButton estan en un array para luego ser creados leidos por
 		// el bucle for
 		JButton[] botones = { new JButton("1.ALTA DE NUEVO EMPLEADO"), new JButton("2.ALTA DE NUEVO ALMACEN"),
 				new JButton("3.MODIFICACION DE LOS DATOS DE UN CLIENTE"),
@@ -42,10 +41,16 @@ public class VentanaPrincipal extends JFrame {
 		// el array y ejecutar lasordenes
 
 		for (int i = 0; i < botones.length; i++) {
+			JButton boton = botones[i];
 			botones[i].setBackground(Color.WHITE);
 			botones[i].setMaximumSize(new Dimension(500, 30));
 			botones[i].setPreferredSize(new Dimension(500, 30));
 			botones[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+			// addActionListener permite en este caso abrir la ventana de la clase que
+			// contiene el ejercicio formativo 1
+			if (i == 0) {
+				boton.addActionListener(e -> new Ventana_Alta_de_nuevo_empleado());
+			}
 			panel.add(botones[i]);
 			panel.add(Box.createVerticalStrut(25));
 
