@@ -8,11 +8,12 @@ import java.sql.*;
 public class ConexionOracleDBXE {
 	// Propiedades
 	private static Connection conn = null;
+	private static Statement st = null;
 	private static String DB_URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static String USER = "adriadmin";
 	private static String PASS = "123456";
 
-	public static void conectar() throws SQLException {
+	public static Connection conectar() throws SQLException {
 
 		// Creando conexion con la base de datos
 		try {
@@ -29,13 +30,17 @@ public class ConexionOracleDBXE {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return conn;
 	}
 
 	public static void cerrarConexion() throws SQLException {
 		// Cerrando conexion
 		if (conn != null) {
 			conn.close();
+		}
+		// cerramos el objeto que representa las ordenes en sql
+		if (st != null) {
+			st.close();
 		}
 	}
 
