@@ -1,5 +1,7 @@
 package Tablas;
 
+import java.util.Date;
+
 public class EMPLOYEES {
 
 	int employee_id;
@@ -8,12 +10,18 @@ public class EMPLOYEES {
 	String email;
 	String phone;
 	int manager_id;
-	String hire_date;
+	Date hire_date;
 	String job_title;
 	int fk_employees_manager;
 
+	// Constructor vacio
+
+	public EMPLOYEES() {
+		super();
+	}
+
 	// constructor con pk
-	public EMPLOYEES(int employee_id, String first_name, String last_name, String email, String phone, String hire_date,
+	public EMPLOYEES(int employee_id, String first_name, String last_name, String email, String phone, Date hire_date,
 			int manager_id, String job_title, int fk_employees_manager) {
 		super();
 		this.employee_id = employee_id;
@@ -28,7 +36,7 @@ public class EMPLOYEES {
 	}
 
 	// constructor sin pk
-	public EMPLOYEES(String first_name, String last_name, String email, String phone, String hire_date, int manager_id,
+	public EMPLOYEES(String first_name, String last_name, String email, String phone, Date hire_date, int manager_id,
 			String job_title, int fk_employees_manager) {
 		super();
 		this.first_name = first_name;
@@ -82,11 +90,11 @@ public class EMPLOYEES {
 		this.phone = phone;
 	}
 
-	public String getHire_date() {
+	public Date getHire_date() {
 		return hire_date;
 	}
 
-	public void setHire_date(String hire_date) {
+	public void setHire_date(Date hire_date) {
 		this.hire_date = hire_date;
 	}
 
