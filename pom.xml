@@ -53,6 +53,12 @@
 			<artifactId>ojdbc8</artifactId>
 			<version>23.7.0.25.01</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
+		<dependency>
+			<groupId>com.toedter</groupId>
+			<artifactId>jcalendar</artifactId>
+			<version>1.4</version>
+		</dependency>
 	</dependencies>
 
 
