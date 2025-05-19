@@ -10,18 +10,22 @@ import Tablas.EMPLOYEES;
 import Utilidades.ConexionOracleDBXE;
 
 public class employeeDAO {
-	private int id;
+
 	// Esta es la plantilla de insercion de datos que se guardara en una propiedad
 	// llamada sql
 	// que nos permitira insertar datos en la base de datos
 	private static String sql = "INSERT INTO EMPLOYEES ("
 			+ "EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE, HIRE_DATE, MANAGER_ID, JOB_TITLE) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	// Tenia dos opciones, o modificar  el comportamiento de la tabla en la base de datos para que se
-	// autogenere EMPLOYEE_ID o hacer una consulta a la base de datos para obtener el ultimo id y hacer una suma
-	// para incrementar la propiedad id y usarla con el proposito de insertar el empleado con un nuevo EMPLOYEE_ID
-	public int autogenerarIDEmpleado(int nuevoID) {
-		nuevoID = 1;
+
+	// Tenia dos opciones, o modificar el comportamiento de la tabla en la base de
+	// datos para que se
+	// autogenere EMPLOYEE_ID o hacer una consulta a la base de datos para obtener
+	// el ultimo id y hacer una suma
+	// para incrementar la propiedad id y usarla con el proposito de insertar el
+	// empleado con un nuevo EMPLOYEE_ID
+	public static int autogenerarIDEmpleado() {
+		int nuevoID = 1;
 		try (Connection conn = ConexionOracleDBXE.conectar();
 				PreparedStatement ps = conn.prepareStatement("SELECT MAX(EMPLOYEE_ID) FROM EMPLOYEES");
 				ResultSet rs = ps.executeQuery()) {
@@ -32,12 +36,12 @@ public class employeeDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return id = nuevoID;
+		return nuevoID;
 
 	}
 
 	public Integer insertarDatos(EMPLOYEES e) {
-		id = autogenerarIDEmpleado(id);
+		int nuevoID = autogenerarIDEmpleado();
 		// Empezamos por hacer laconexion usando un try para someterlo a una prueba de
 		// errores y capturar posibles excepciones
 		// ps es el objeto Statement que se encargara de ineracturar con el molde del
@@ -47,7 +51,7 @@ public class employeeDAO {
 			// que la plantilla sql por eso la numeracion del 1 al 7 saltandonos la PK
 			// porque
 			// la preparamos como autogenerable
-			ps.setInt(1, id);
+			ps.setInt(1, nuevoID);
 			ps.setString(2, e.getFirst_name());
 			ps.setString(3, e.getLast_name());
 			ps.setString(4, e.getEmail());
@@ -60,7 +64,7 @@ public class employeeDAO {
 			int filasInsertadas = ps.executeUpdate();
 
 			if (filasInsertadas > 0) {
-				return id;
+				return nuevoID;
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -77,11 +81,9 @@ public class employeeDAO {
 		List<EMPLOYEES> jefes = new ArrayList<>();
 
 		try {
-			ConexionOracleDBXE.conectar();
 			Connection conn = ConexionOracleDBXE.conectar();
 
-			String sql = "SELECT DISTINCT e.employee_id, e.first_name, e.last_name " + "FROM employees e "
-					+ "WHERE e.employee_id IN (SELECT DISTINCT employee_id FROM employees WHERE employee_id IS NOT NULL)";
+			String sql = "SELECT DISTINCT employee_id, first_name, last_name FROM employees";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -93,7 +95,7 @@ public class employeeDAO {
 			}
 			rs.close();
 			ps.close();
-			ConexionOracleDBXE.cerrarConexion();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

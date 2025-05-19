@@ -16,7 +16,7 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 	private JTextField textFieldEmail;
 	private JTextField textFieldTelefono;
 	private JTextField textFieldTrabajo;
-	private JComboBox<String> comboBoxJefes;
+	private JComboBox<EMPLOYEES> comboBoxJefes = new JComboBox<>();
 
 	public Ventana_Alta_de_nuevo_empleado() {
 		setTitle("1.ALTA DE NUEVO EMPLEADO");
@@ -63,6 +63,21 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 		comboBoxJefes.setBounds(161, 203, 165, 20);
 		panel.add(comboBoxJefes);
 		cargarJefesEnComboBox();
+		// Renderizado personalizado para mostrar solo nombre + apellido
+		comboBoxJefes.setRenderer(new ListCellRenderer<EMPLOYEES>() {
+			private final DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+			@Override
+			public Component getListCellRendererComponent(JList<? extends EMPLOYEES> list, EMPLOYEES value, int index,
+					boolean isSelected, boolean cellHasFocus) {
+				JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected,
+						cellHasFocus);
+				if (value != null) {
+					renderer.setText(value.getFirst_name() + " " + value.getLast_name());
+				}
+				return renderer;
+			}
+		});
 		textFieldApellidos = new JTextField();
 		textFieldApellidos.setColumns(10);
 		textFieldApellidos.setBounds(454, 64, 172, 20);
@@ -107,19 +122,20 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 						String telefono = textFieldTelefono.getText().trim();
 						String trabajo = textFieldTrabajo.getText().trim();
 						Date fecha = dateChooser_fecha_contratacion.getDate();
-						String managerSeleccionado = (String) comboBoxJefes.getSelectedItem();
+						// String managerSeleccionado = (String) comboBoxJefes.getSelectedItem();
+
 						// Una medida de control por si el usuario deja vacio campos
 						boolean verificaDatosRellenos = true;
-						if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || telefono.isEmpty() || trabajo.isEmpty()) {
+						if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || telefono.isEmpty()
+								|| trabajo.isEmpty()) {
 							verificaDatosRellenos = false;
 						}
 						// Convertir la fecha a java.sql.Date
 						java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-						// Obtener el ID del manager (suponiendo que el combo tiene algo como "102 -
-						// Juan Pérez")
-						int managerId = Integer.parseInt(managerSeleccionado.split(" ")[0]);
-
+						// Obtener el ID del manager para enlistar posibles jefes
+						EMPLOYEES managerSeleccionado = (EMPLOYEES) comboBoxJefes.getSelectedItem();
+						int managerId = managerSeleccionado != null ? managerSeleccionado.getEmployee_id() : 0;
 						// Crear objeto Empleado
 						EMPLOYEES nuevoEmpleado = new EMPLOYEES();
 						nuevoEmpleado.setFirst_name(nombre);
@@ -130,17 +146,19 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 						nuevoEmpleado.setHire_date(fechaSQL);
 						nuevoEmpleado.setManager_id(managerId);
 
-						// Inserta datos usando la clase employeeDAO
+						// Se crea el objeto dao de la clase employeeDAO para el insert si los campos estan rellenos
 						employeeDAO dao = new employeeDAO();
-						dao.insertarDatos(nuevoEmpleado);
+						
 
 						// Confirmacion de insercion de datos
-						if(verificaDatosRellenos == true) {
+						if (verificaDatosRellenos == true) {
+							dao.insertarDatos(nuevoEmpleado);
 							JOptionPane.showMessageDialog(null, "Empleado insertado correctamente.");
 						} else {
-							JOptionPane.showMessageDialog(null, "Empleado no insertado, verifique si los campos estan correctos antes de continuar.");
+							JOptionPane.showMessageDialog(null,
+									"Empleado no insertado, verifique si los campos estan correctos antes de continuar.");
 						}
-						
+
 						// Confirmacion de error de inserion de datos
 					} catch (Exception ex) {
 						ex.printStackTrace();
@@ -164,7 +182,7 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 	private void cargarJefesEnComboBox() {
 		List<EMPLOYEES> jefes = employeeDAO.obtenerJefes();
 		for (EMPLOYEES jefe : jefes) {
-			comboBoxJefes.addItem(jefe.getEmployee_id() + " - " + jefe.getFirst_name() + " " + jefe.getLast_name());
+			comboBoxJefes.addItem(jefe);
 		}
 	}
 

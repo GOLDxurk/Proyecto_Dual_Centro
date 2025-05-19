@@ -47,9 +47,13 @@ public class VentanaPrincipal extends JFrame {
 			botones[i].setPreferredSize(new Dimension(500, 30));
 			botones[i].setAlignmentX(Component.CENTER_ALIGNMENT);
 			// addActionListener permite en este caso abrir la ventana de la clase que
-			// contiene el ejercicio formativo 1
+			// contiene el ejercicio formativo 1 y el resto de botones que no sean el 0 en este caso
+			// mostraran un mensaje de Ejercicio en desarrollo.
 			if (i == 0) {
 				boton.addActionListener(e -> new Ventana_Alta_de_nuevo_empleado());
+			} else {
+				boton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Ejercicio en desarrollo.",
+						"Información", JOptionPane.INFORMATION_MESSAGE));
 			}
 			panel.add(botones[i]);
 			panel.add(Box.createVerticalStrut(25));
