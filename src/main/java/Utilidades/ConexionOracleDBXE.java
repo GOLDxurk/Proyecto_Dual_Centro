@@ -2,9 +2,11 @@ package Utilidades;
 
 import java.sql.*;
 
-// clase conexion que sera la base para las actividades
-// no necesita ser una clase abstracta ya qye al tener un import de
-// sql la conexion esta ya hecha para cualquier otra clase
+/**
+ * Clase encargada de establecer y cerrar conexiones con la base de datos
+ * Oracle. Funciona como base común para todas las operaciones JDBC del
+ * proyecto.
+ */
 public class ConexionOracleDBXE {
 	// Propiedades
 	private static Connection conn = null;
@@ -13,9 +15,14 @@ public class ConexionOracleDBXE {
 	private static String USER = "adriadmin";
 	private static String PASS = "123456";
 
+	/**
+	 * Crea una conexión con la base de datos usando las credenciales configuradas.
+	 * Muestra por consola si la conexión ha sido exitosa o no.
+	 *
+	 * @return objeto Connection activo para operar con la base de datos
+	 */
 	public static Connection conectar() throws SQLException {
 
-		// Creando conexion con la base de datos
 		try {
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
@@ -33,12 +40,16 @@ public class ConexionOracleDBXE {
 		return conn;
 	}
 
+	/**
+	 * Cierra la conexión con la base de datos si está abierta. También se encarga
+	 * de cerrar el Statement, si existe.
+	 */
 	public static void cerrarConexion() throws SQLException {
-		// Cerrando conexion
+
 		if (conn != null) {
 			conn.close();
 		}
-		// cerramos el objeto que representa las ordenes en sql
+
 		if (st != null) {
 			st.close();
 		}

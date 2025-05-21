@@ -10,6 +10,11 @@ public class PRODUCTS {
 	int category_id;
 	int fk_products_categories;
 
+	// constructor vacio
+	public PRODUCTS() {
+		super();
+	}
+
 	// constructor con pk
 	public PRODUCTS(int product_id, String product_name, String description, double standard_cost, double list_price,
 			int category_id, int fk_products_categories) {
@@ -48,7 +53,7 @@ public class PRODUCTS {
 		return product_name;
 	}
 
-	public void setPorduct_name(String product_name) {
+	public void setProduct_name(String product_name) {
 		this.product_name = product_name;
 	}
 

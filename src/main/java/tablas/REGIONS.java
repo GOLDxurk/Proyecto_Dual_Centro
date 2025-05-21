@@ -5,6 +5,11 @@ public class REGIONS {
 	int region_id;
 	String region_name;
 
+	// Constructor vacio
+	public REGIONS() {
+		super();
+	}
+
 	// Constructor con pk
 	public REGIONS(int region_id, String region_name) {
 		super();

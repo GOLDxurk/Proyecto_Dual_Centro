@@ -9,6 +9,11 @@ public class CONTACTS {
 	int customer_id;
 	int fk_contacts_customers;
 
+	// constructor vacio
+	public CONTACTS() {
+		super();
+	}
+
 	// constructor con pk
 	public CONTACTS(int contact_id, String first_name, String last_name, String email, String phone, int customer_id,
 			int fk_contacts_customers) {

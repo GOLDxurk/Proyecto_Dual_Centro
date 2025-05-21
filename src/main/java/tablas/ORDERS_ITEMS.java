@@ -10,6 +10,11 @@ public class ORDERS_ITEMS {
 	int fk_order_items;
 	int fk_order_items_order;
 
+	// constructor vacio
+	public ORDERS_ITEMS() {
+		super();
+	}
+
 	// constructor con pk
 	public ORDERS_ITEMS(int order_id, int item_id, int product_id, double quantity, double unit_price,
 			int fk_order_items, int fk_order_items_order) {
@@ -64,7 +69,7 @@ public class ORDERS_ITEMS {
 		return quantity;
 	}
 
-	public void setQuiantity(double quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 

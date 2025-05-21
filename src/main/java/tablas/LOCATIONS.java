@@ -10,6 +10,11 @@ public class LOCATIONS {
 	int country_id;
 	int fk_location_countries;
 
+	// constructor vacio
+	public LOCATIONS() {
+		super();
+	}
+
 	// constructor con pk
 	public LOCATIONS(int location_id, String address, String postal_code, String city, String state, int country_id,
 			int fk_location_countries) {

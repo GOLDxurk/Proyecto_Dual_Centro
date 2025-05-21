@@ -6,6 +6,11 @@ public class COUNTRIES {
 	int region_id;
 	int fk_countries_regions;
 
+	// constructor vacio
+	public COUNTRIES() {
+		super();
+	}
+
 	// constructor con pk
 	public COUNTRIES(int country_id, String country_name, int region_id, int fk_countries_regions) {
 		super();

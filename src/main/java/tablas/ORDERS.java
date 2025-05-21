@@ -1,16 +1,21 @@
 package Tablas;
-
+import java.util.Date;
 public class ORDERS {
 	int order_id;
 	int customer_id;
 	String status;
 	int salesman_id;
-	String order_date;
+	Date order_date;
 	int fk_orders_customers;
 	int fk_orders_employees;
 
+	// constructor vacio
+	public ORDERS() {
+		super();
+	}
+
 	// constructor con pk
-	public ORDERS(int order_id, int customer_id, String status, int salesman_id, String order_date,
+	public ORDERS(int order_id, int customer_id, String status, int salesman_id, Date order_date,
 			int fk_orders_customers, int fk_orders_employees) {
 		super();
 		this.order_id = order_id;
@@ -23,7 +28,7 @@ public class ORDERS {
 	}
 
 	// constructor sin pk
-	public ORDERS(int customer_id, String status, int salesman_id, String order_date, int fk_orders_customers,
+	public ORDERS(int customer_id, String status, int salesman_id,Date order_date, int fk_orders_customers,
 			int fk_orders_employees) {
 		super();
 		this.customer_id = customer_id;
@@ -67,11 +72,11 @@ public class ORDERS {
 		this.salesman_id = salesman_id;
 	}
 
-	public String getOrder_date() {
+	public Date getOrder_date() {
 		return order_date;
 	}
 
-	public void setOrder_date(String order_date) {
+	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
 	}
 

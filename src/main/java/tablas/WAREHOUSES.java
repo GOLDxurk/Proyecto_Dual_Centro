@@ -7,6 +7,11 @@ public class WAREHOUSES {
 	int location_id;
 	int fk_warehouse_locations;
 
+	// constructor vacio
+	public WAREHOUSES() {
+		super();
+	}
+
 	// constructor con pk
 	public WAREHOUSES(int warehouse_id, String warehouse_name, int location_id, int fk_warehouse_locations) {
 		super();

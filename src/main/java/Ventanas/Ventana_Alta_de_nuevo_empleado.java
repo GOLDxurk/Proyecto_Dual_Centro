@@ -10,6 +10,12 @@ import com.toedter.calendar.JDateChooser;
 import Tablas.EMPLOYEES;
 import Controladores.employeeDAO;
 
+/**
+ * Ventana Swing que permite dar de alta a un nuevo empleado. Incluye campos de
+ * entrada, selección de jefe desde un JComboBox, y calendario para la fecha de
+ * contratación. Toda la información se recoge y se envía al DAO para ser
+ * insertada en la base de datos.
+ */
 public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellidos;
@@ -23,8 +29,7 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 
 		setSize(700, 400);
 		setLocationRelativeTo(null);
-		// Cierra la ventana del ejercicio formativo pero no para el programa si no se
-		// cierra la principal
+		// Este Jframe hara que solo se cierre la ventana sin finalizar el programa
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		JPanel panel = new JPanel();
@@ -35,7 +40,9 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 		nick1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		nick1.setBounds(51, 41, 104, 59);
 		panel.add(nick1);
-
+		/**
+		 * Campo de texto para el nombre del nuevo empleado.
+		 */
 		textFieldNombre = new JTextField();
 		textFieldNombre.setBounds(154, 64, 172, 20);
 		panel.add(textFieldNombre);
@@ -58,7 +65,10 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 		nick.setFont(new Font("Tahoma", Font.BOLD, 20));
 		nick.setBounds(78, 185, 69, 48);
 		panel.add(nick);
-
+		/**
+		 * ComboBox que permite seleccionar a un jefe de entre los empleados ya
+		 * existentes.
+		 */
 		comboBoxJefes = new JComboBox<>();
 		comboBoxJefes.setBounds(161, 203, 165, 20);
 		panel.add(comboBoxJefes);
@@ -78,16 +88,23 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 				return renderer;
 			}
 		});
+		/**
+		 * Campo de texto para los apellidos del nuevo empleado.
+		 */
 		textFieldApellidos = new JTextField();
 		textFieldApellidos.setColumns(10);
 		textFieldApellidos.setBounds(454, 64, 172, 20);
 		panel.add(textFieldApellidos);
-
+		/**
+		 * Campo de texto para el correo electrónico del nuevo empleado.
+		 */
 		textFieldEmail = new JTextField();
 		textFieldEmail.setColumns(10);
 		textFieldEmail.setBounds(154, 107, 172, 20);
 		panel.add(textFieldEmail);
-
+		/**
+		 * Campo de texto para el número de teléfono del nuevo empleado.
+		 */
 		textFieldTelefono = new JTextField();
 		textFieldTelefono.setColumns(10);
 		textFieldTelefono.setBounds(454, 107, 172, 20);
@@ -97,18 +114,23 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 		nick6.setFont(new Font("Tahoma", Font.BOLD, 20));
 		nick6.setBounds(51, 138, 104, 48);
 		panel.add(nick6);
-
+		/**
+		 * Campo de texto para el puesto de trabajo del nuevo empleado.
+		 */
 		textFieldTrabajo = new JTextField();
 		textFieldTrabajo.setColumns(10);
 		textFieldTrabajo.setBounds(154, 154, 172, 20);
 		panel.add(textFieldTrabajo);
-
+		/**
+		 * Campo de Jcalendar JDataChooser que permite en la ventana tener un calendario
+		 * interactivo para la seleccion de la fecha de contratacion.
+		 */
 		JDateChooser dateChooser_fecha_contratacion = new JDateChooser();
 		dateChooser_fecha_contratacion.setDateFormatString("dd-MM-yy");
 		dateChooser_fecha_contratacion.setDate(new Date());
 		dateChooser_fecha_contratacion.setBounds(395, 203, 134, 20);
 		panel.add(dateChooser_fecha_contratacion);
-
+		// Configura el botón para insertar el nuevo empleado
 		JButton btnNewButton = new JButton("Insertar Empleado");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -146,9 +168,9 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 						nuevoEmpleado.setHire_date(fechaSQL);
 						nuevoEmpleado.setManager_id(managerId);
 
-						// Se crea el objeto dao de la clase employeeDAO para el insert si los campos estan rellenos
+						// Se crea el objeto dao de la clase employeeDAO para el insert si los campos
+						// estan rellenos
 						employeeDAO dao = new employeeDAO();
-						
 
 						// Confirmacion de insercion de datos
 						if (verificaDatosRellenos == true) {
@@ -179,6 +201,10 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 
 	}
 
+	/**
+	 * Método privado que consulta a la base de datos para obtener todos los
+	 * posibles jefes, y los carga en el comboBox usando renderizado personalizado.
+	 */
 	private void cargarJefesEnComboBox() {
 		List<EMPLOYEES> jefes = employeeDAO.obtenerJefes();
 		for (EMPLOYEES jefe : jefes) {
@@ -186,6 +212,10 @@ public class Ventana_Alta_de_nuevo_empleado extends JFrame {
 		}
 	}
 
+	/**
+	 * Método main que permite ejecutar esta ventana de forma independiente para
+	 * pruebas o lanzamientos directos.
+	 */
 	public static void main(String[] args) {
 		// Ejecutar en el hilo de eventos de Swing
 		SwingUtilities.invokeLater(Ventana_Alta_de_nuevo_empleado::new);

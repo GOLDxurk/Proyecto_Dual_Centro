@@ -5,6 +5,11 @@ public class PRODUCT_CATEGORIES {
 	int category_id;
 	String category_name;
 
+	// constructor vacio
+	public PRODUCT_CATEGORIES() {
+		super();
+	}
+
 	// constructor con pk
 	public PRODUCT_CATEGORIES(int category_id, String category_name) {
 		super();

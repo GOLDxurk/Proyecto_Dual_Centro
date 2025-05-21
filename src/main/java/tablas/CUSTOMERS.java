@@ -7,6 +7,11 @@ public class CUSTOMERS {
 	String website;
 	double credit_limit;
 
+	// constructor vacio
+	public CUSTOMERS() {
+		super();
+	}
+
 	// constructor con pk
 	public CUSTOMERS(int customer_id, String name, String address, String website, double credit_limit) {
 		super();

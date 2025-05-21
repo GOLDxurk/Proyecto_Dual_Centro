@@ -8,6 +8,11 @@ public class INVENTORIES {
 	int fk_inventories_products;
 	int fk_inventories_warehouse;
 
+	// constructor vacio
+	public INVENTORIES() {
+		super();
+	}
+
 	// constructor con pk
 	public INVENTORIES(int product_id, int warehouse_id, int quantity, int fk_inventories_products,
 			int fk_inventories_warehouse) {

@@ -4,9 +4,26 @@ import java.awt.*;
 
 import javax.swing.*;
 
+/**
+ * Clase principal que representa la ventana inicial del proyecto.
+ * 
+ * Esta ventana actúa como menú principal del sistema y ofrece acceso a cada uno
+ * de los ejercicios formativos a través de botones. Cada botón está claramente
+ * identificado por número y descripción, y su acción varía según el caso:
+ * 
+ * - El botón del ejercicio 1 abre directamente la ventana funcional para dar de
+ * alta un nuevo empleado. - Los demás botones muestran un mensaje informativo
+ * indicando que el ejercicio aún está en desarrollo.
+ * 
+ * La disposición visual está centrada y diseñada para mantener una interfaz
+ * clara, estética y ordenada.
+ */
 public class VentanaPrincipal extends JFrame {
 
-	// aun en desarrollo
+	/**
+	 * Constructor que configura y muestra la ventana principal. Aquí se inicializan
+	 * los botones, su comportamiento y el diseño general.
+	 */
 	public VentanaPrincipal() {
 		// Título de la ventana
 		setTitle("Proyecto Dual en Centro");
@@ -38,7 +55,7 @@ public class VentanaPrincipal extends JFrame {
 		// Aqui hago un pequeño desplazamiento inicial por estetica de la ventana
 		panel.add(Box.createVerticalStrut(10));
 		// Insercion de los botones preparado en el array, el contador se enarga de leer
-		// el array y ejecutar lasordenes
+		// el array y ejecutar las ordenes
 
 		for (int i = 0; i < botones.length; i++) {
 			JButton boton = botones[i];
@@ -47,7 +64,8 @@ public class VentanaPrincipal extends JFrame {
 			botones[i].setPreferredSize(new Dimension(500, 30));
 			botones[i].setAlignmentX(Component.CENTER_ALIGNMENT);
 			// addActionListener permite en este caso abrir la ventana de la clase que
-			// contiene el ejercicio formativo 1 y el resto de botones que no sean el 0 en este caso
+			// contiene el ejercicio formativo 1 y el resto de botones que no sean el 0 en
+			// este caso
 			// mostraran un mensaje de Ejercicio en desarrollo.
 			if (i == 0) {
 				boton.addActionListener(e -> new Ventana_Alta_de_nuevo_empleado());
@@ -65,6 +83,10 @@ public class VentanaPrincipal extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Método main que lanza la ventana principal de la aplicación. Punto de entrada
+	 * de la interfaz de usuario.
+	 */
 	public static void main(String[] args) {
 		// Ejecutar en el hilo de eventos de Swing
 		SwingUtilities.invokeLater(VentanaPrincipal::new);
